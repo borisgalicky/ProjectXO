@@ -13,7 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("XO Game");
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root,517 ,362));
+        primaryStage.setScene(new Scene(root,517,362));
         primaryStage.show();
     }
 

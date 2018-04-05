@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.util.Random;
@@ -48,9 +49,11 @@ public class Controller{
     public ImageView img15;
     @FXML
     public ImageView img16;
-    public boolean inProgress=false;
-    public int[][]arr=new int[4][4];
-    public int clicks=0;
+    @FXML
+    public Label counter;
+    private boolean inProgress=false;
+    private int[][]arr=new int[4][4];
+    private int clicks=0;
 
     public void startGame(){
         if(inProgress==true){
@@ -61,6 +64,7 @@ public class Controller{
             Optional<ButtonType> result = alert.showAndWait();
             if((result.get()==ButtonType.OK)&&inProgress == true){
                 newgame_btn.setDisable(true);
+                counter.setText("0");
                 clicks=0;
                 Random rn=new Random();
                 for(int i=0;i<4;i++){
@@ -100,10 +104,101 @@ public class Controller{
     }
     public void processGame(javafx.scene.input.MouseEvent mouseEvent){
         if(inProgress==true) {
-            if (mouseEvent.getSource() == img1) {
+            if(mouseEvent.getSource() == img1){
                 newgame_btn.setDisable(false);
-                System.out.println("Clicked!");
                 clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img2){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img3){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img4){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img5){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img6){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img7){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img8){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img9){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img10){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img11){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img12){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img13){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img14){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img15){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
+            }
+            if(mouseEvent.getSource() == img16){
+                newgame_btn.setDisable(false);
+                clicks++;
+                counter.setText(String.valueOf(clicks));
+                arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
             }
         }
     }
