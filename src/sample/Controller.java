@@ -7,6 +7,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.util.Random;
@@ -52,6 +54,10 @@ public class Controller{
     public ImageView img16;
     @FXML
     public Label counter;
+    @FXML
+    public GridPane gridpane;
+    @FXML
+    public Label winner;
     private boolean inProgress=false;
     private int[][]arr=new int[4][4];
     private int clicks=0;
@@ -73,16 +79,10 @@ public class Controller{
                 Random rn=new Random();
                 for(int i=0;i<4;i++){
                     for(int j=0;j<4;j++){
-                        int answer=rn.nextInt(2)+0;
+                        int answer=rn.nextInt(2);
                         arr[i][j]=answer;
                     }
-                }for(int i=0;i<4;i++){
-                    for(int j=0;j<4;j++){
-                        System.out.print(arr[i][j]+"    ");
-                    }
-                    System.out.println("\n");
-                }
-                int count=1;
+                }int count=1;
                 for(int i=0;i<4;i++){
                     for(int j=0;j<4;j++){
                         if(arr[i][j]==0){
@@ -134,19 +134,15 @@ public class Controller{
             }
         }
         else if(inProgress==false){
+            winner.setText("");
+            counter.setText("0");
             Random rn = new Random();
             for(int i=0;i<4;i++){
                 for(int j=0;j<4;j++){
-                    int answer = rn.nextInt(2) + 0;
+                    int answer = rn.nextInt(2);
                     arr[i][j] = answer;
                 }
-            }for(int i=0;i<4;i++){
-                for(int j=0;j<4;j++){
-                    System.out.print(arr[i][j]+ "    ");
-                }
-                System.out.println("\n");
-            }
-            int count=1;
+            }int count=1;
             for(int i=0;i<4;i++){
                 for(int j=0;j<4;j++){
                     if(arr[i][j]==0){
@@ -196,82 +192,184 @@ public class Controller{
             newgame_btn.setDisable(true);
             newgame_btn.setText("Restart");
             inProgress=true;
+            gridpane.setDisable(false);
         }
     }
-    public void processGame(javafx.scene.input.MouseEvent mouseEvent)throws Exception{
+    public void processGame(MouseEvent mouseEvent)throws Exception{
         String current=new java.io.File(".").getCanonicalPath();
         Image imageX=new Image(new FileInputStream(current+"\\src\\resource\\X.png"));
         Image imageO=new Image(new FileInputStream(current+"\\src\\resource\\O.png"));
-            if(mouseEvent.getSource() == img1){
+        if(inProgress==true){
+            if (mouseEvent.getSource() == img1) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-                /*arr[0][0]=0;arr[0][1]=1;arr[1][0]=1;arr[1][1]=1;
-                img2.setImage(imageO);
-                img6.setImage(imageX);
-                img5.setImage(imageO);*/
-            }else if(mouseEvent.getSource() == img2){
+                if(arr[0][1]==1){arr[0][1]=0;img2.setImage(imageO);}else{arr[0][1]=1;img2.setImage(imageX);}
+                if(arr[1][0]==1){arr[1][0]=0;img5.setImage(imageO);}else{arr[1][0]=1;img5.setImage(imageX);}
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img2) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img3){
+                if(arr[0][0]==1){arr[0][0]=0;img1.setImage(imageO);}else{arr[0][0]=1;img1.setImage(imageX);}
+                if(arr[1][0]==1){arr[1][0]=0;img5.setImage(imageO);}else{arr[1][0]=1;img5.setImage(imageX);}
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[0][2]==1){arr[0][2]=0;img3.setImage(imageO);}else{arr[0][2]=1;img3.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img3) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img4){
+                if(arr[0][1]==1){arr[0][1]=0;img2.setImage(imageO);}else{arr[0][1]=1;img2.setImage(imageX);}
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[1][3]==1){arr[1][3]=0;img8.setImage(imageO);}else{arr[1][3]=1;img8.setImage(imageX);}
+                if(arr[0][3]==1){arr[0][3]=0;img4.setImage(imageO);}else{arr[0][3]=1;img4.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img4) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img5){
+                if(arr[0][2]==1){arr[0][2]=0;img3.setImage(imageO);}else{arr[0][2]=1;img3.setImage(imageX);}
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[1][3]==1){arr[1][3]=0;img8.setImage(imageO);}else{arr[1][3]=1;img8.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img5) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img6){
+                if(arr[0][0]==1){arr[0][0]=0;img1.setImage(imageO);}else{arr[0][0]=1;img1.setImage(imageX);}
+                if(arr[0][1]==1){arr[0][1]=0;img2.setImage(imageO);}else{arr[0][1]=1;img2.setImage(imageX);}
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+                if(arr[2][0]==1){arr[2][0]=0;img9.setImage(imageO);}else{arr[2][0]=1;img9.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img6) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img7){
+                if(arr[0][0]==1){arr[0][0]=0;img1.setImage(imageO);}else{arr[0][0]=1;img1.setImage(imageX);}
+                if(arr[0][1]==1){arr[0][1]=0;img2.setImage(imageO);}else{arr[0][1]=1;img2.setImage(imageX);}
+                if(arr[0][2]==1){arr[0][2]=0;img3.setImage(imageO);}else{arr[0][2]=1;img3.setImage(imageX);}
+                if(arr[1][0]==1){arr[1][0]=0;img5.setImage(imageO);}else{arr[1][0]=1;img5.setImage(imageX);}
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[2][0]==1){arr[2][0]=0;img9.setImage(imageO);}else{arr[2][0]=1;img9.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img7) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img8){
+                if(arr[0][1]==1){arr[0][1]=0;img2.setImage(imageO);}else{arr[0][1]=1;img2.setImage(imageX);}
+                if(arr[0][2]==1){arr[0][2]=0;img3.setImage(imageO);}else{arr[0][2]=1;img3.setImage(imageX);}
+                if(arr[0][3]==1){arr[0][3]=0;img4.setImage(imageO);}else{arr[0][3]=1;img4.setImage(imageX);}
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+                if(arr[1][3]==1){arr[1][3]=0;img8.setImage(imageO);}else{arr[1][3]=1;img8.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+                if(arr[2][3]==1){arr[2][3]=0;img12.setImage(imageO);}else{arr[2][3]=1;img12.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img8) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img9){
+                if(arr[0][2]==1){arr[0][2]=0;img3.setImage(imageO);}else{arr[0][2]=1;img3.setImage(imageX);}
+                if(arr[0][3]==1){arr[0][3]=0;img4.setImage(imageO);}else{arr[0][3]=1;img4.setImage(imageX);}
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+                if(arr[2][3]==1){arr[2][3]=0;img12.setImage(imageO);}else{arr[2][3]=1;img12.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img9) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img10){
+                if(arr[1][0]==1){arr[1][0]=0;img5.setImage(imageO);}else{arr[1][0]=1;img5.setImage(imageX);}
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+                if(arr[3][0]==1){arr[3][0]=0;img13.setImage(imageO);}else{arr[3][0]=1;img13.setImage(imageX);}
+                if(arr[3][1]==1){arr[3][1]=0;img14.setImage(imageO);}else{arr[3][1]=1;img14.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img10) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img11){
+                if(arr[1][0]==1){arr[1][0]=0;img5.setImage(imageO);}else{arr[1][0]=1;img5.setImage(imageX);}
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[2][0]==1){arr[2][0]=0;img9.setImage(imageO);}else{arr[2][0]=1;img9.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+                if(arr[3][0]==1){arr[3][0]=0;img13.setImage(imageO);}else{arr[3][0]=1;img13.setImage(imageX);}
+                if(arr[3][1]==1){arr[3][1]=0;img14.setImage(imageO);}else{arr[3][1]=1;img14.setImage(imageX);}
+                if(arr[3][2]==1){arr[3][2]=0;img15.setImage(imageO);}else{arr[3][2]=1;img15.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img11) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img12){
+                if(arr[1][1]==1){arr[1][1]=0;img6.setImage(imageO);}else{arr[1][1]=1;img6.setImage(imageX);}
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[1][3]==1){arr[1][3]=0;img8.setImage(imageO);}else{arr[1][3]=1;img8.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+                if(arr[2][3]==1){arr[2][3]=0;img12.setImage(imageO);}else{arr[2][3]=1;img12.setImage(imageX);}
+                if(arr[3][1]==1){arr[3][1]=0;img14.setImage(imageO);}else{arr[3][1]=1;img14.setImage(imageX);}
+                if(arr[3][2]==1){arr[3][2]=0;img15.setImage(imageO);}else{arr[3][2]=1;img15.setImage(imageX);}
+                if(arr[3][3]==1){arr[3][3]=0;img16.setImage(imageO);}else{arr[3][3]=1;img16.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img12) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img13){
+                if(arr[1][2]==1){arr[1][2]=0;img7.setImage(imageO);}else{arr[1][2]=1;img7.setImage(imageX);}
+                if(arr[1][3]==1){arr[1][3]=0;img8.setImage(imageO);}else{arr[1][3]=1;img8.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+                if(arr[3][2]==1){arr[3][2]=0;img15.setImage(imageO);}else{arr[3][2]=1;img15.setImage(imageX);}
+                if(arr[3][3]==1){arr[3][3]=0;img16.setImage(imageO);}else{arr[3][3]=1;img16.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img13) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img14){
+                if(arr[2][0]==1){arr[2][0]=0;img9.setImage(imageO);}else{arr[2][0]=1;img9.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+                if(arr[3][1]==1){arr[3][1]=0;img14.setImage(imageO);}else{arr[3][1]=1;img14.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img14) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img15){
+                if(arr[3][0]==1){arr[3][0]=0;img13.setImage(imageO);}else{arr[3][0]=1;img13.setImage(imageX);}
+                if(arr[2][0]==1){arr[2][0]=0;img9.setImage(imageO);}else{arr[2][0]=1;img9.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+                if(arr[3][2]==1){arr[3][2]=0;img15.setImage(imageO);}else{arr[3][2]=1;img15.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img15) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
-            }else if(mouseEvent.getSource() == img16){
+                if(arr[3][1]==1){arr[3][1]=0;img14.setImage(imageO);}else{arr[3][1]=1;img14.setImage(imageX);}
+                if(arr[2][1]==1){arr[2][1]=0;img10.setImage(imageO);}else{arr[2][1]=1;img10.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+                if(arr[2][3]==1){arr[2][3]=0;img12.setImage(imageO);}else{arr[2][3]=1;img12.setImage(imageX);}
+                if(arr[3][3]==1){arr[3][3]=0;img16.setImage(imageO);}else{arr[3][3]=1;img16.setImage(imageX);}
+            } else if (mouseEvent.getSource() == img16) {
                 newgame_btn.setDisable(false);
                 clicks++;
                 counter.setText(String.valueOf(clicks));
+                if(arr[3][2]==1){arr[3][2]=0;img15.setImage(imageO);}else{arr[3][2]=1;img15.setImage(imageX);}
+                if(arr[2][2]==1){arr[2][2]=0;img11.setImage(imageO);}else{arr[2][2]=1;img11.setImage(imageX);}
+                if(arr[2][3]==1){arr[2][3]=0;img12.setImage(imageO);}else{arr[2][3]=1;img12.setImage(imageX);}
+            }
+            int countX = 0;
+            int countO = 0;
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if (arr[i][j] == 1) {
+                        countX++;
+                    }
+                    if (arr[i][j] == 0) {
+                        countO++;
+                    }
+                }
+            }
+            if ((countX == 16) || (countO == 16)){
+                gridpane.setDisable(true);
+                winner.setText("You WON!");
+                newgame_btn.setText("New game");
+                inProgress=false;
+                clicks=0;
             }
         }
+    }
     public void exitGame(){
         if(inProgress==true){
             Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
