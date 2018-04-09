@@ -1,15 +1,14 @@
 package sample;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import javafx.event.ActionEvent;
 import java.io.FileInputStream;
 import java.util.Random;
 import java.util.Optional;
@@ -58,9 +57,35 @@ public class Controller{
     public GridPane gridpane;
     @FXML
     public Label winner;
+    @FXML
+    public RadioButton easy;
+    @FXML
+    public RadioButton medium;
+    @FXML
+    public RadioButton hard;
+    @FXML
+    public Label difficulty;
+
     private boolean inProgress=false;
     private int[][]arr=new int[4][4];
     private int clicks=0;
+    private int difficulty_number=1;
+
+    public void changeDifficulty(ActionEvent event){
+        if(event.getSource()==easy){
+            medium.setSelected(false);
+            hard.setSelected(false);
+            difficulty_number=1;
+        }else if(event.getSource()==medium){
+            easy.setSelected(false);
+            hard.setSelected(false);
+            difficulty_number=2;
+        }else if(event.getSource()==hard){
+            medium.setSelected(false);
+            easy.setSelected(false);
+            difficulty_number=3;
+        }
+    }
 
     public void startGame()throws Exception{
         String current=new java.io.File(".").getCanonicalPath();
@@ -76,6 +101,13 @@ public class Controller{
                 newgame_btn.setDisable(true);
                 counter.setText("0");
                 clicks=0;
+                easy.setDisable(false);
+                easy.setSelected(false);
+                medium.setDisable(false);
+                medium.setSelected(false);
+                hard.setDisable(false);
+                hard.setSelected(false);
+                difficulty.setText("Choose difficulty");
                 Random rn=new Random();
                 for(int i=0;i<4;i++){
                     for(int j=0;j<4;j++){
@@ -134,6 +166,9 @@ public class Controller{
             }
         }
         else if(inProgress==false){
+            easy.setDisable(true);
+            medium.setDisable(true);
+            hard.setDisable(true);
             winner.setText("");
             counter.setText("0");
             Random rn = new Random();
@@ -382,8 +417,7 @@ public class Controller{
             }else{
                 //nothing
             }
-        }
-        else{
+        }else{
             Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Exit game");
             alert.setHeaderText("You're going to leave game.");
